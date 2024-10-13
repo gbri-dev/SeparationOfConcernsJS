@@ -21,6 +21,7 @@
             const screen = document.getElementById('screen')
             const context = screen.getContext('2d')
             const currentPlayerId = 'player1'
+
             const state = {
                 players: {
                     'player1': { x: 1, y: 1 },
@@ -32,43 +33,49 @@
             }
 
             function createGame(){
-                function moverPlayer(command) {
+                function movePlayer(command) {
                     console.log(`Moving ${command.playerId} with ${command.keyPressed}`)
+
+                    const keyPressed = command.keyPressed
+                    const player = state.players[command.playerId]
+
+                    if (keyPressed === 'ArrowUp' && player.y - 1 >= 0) {  
+                        player.y -= 1
+                        return  
+                    }
+                    if (keyPressed === 'ArrowDown' && player.y + 1 < screen.height) {  
+                        player.y += 1
+                        return  
+                    }
+                    if (keyPressed === 'ArrowRight' && player.x + 1 < screen.width) {  
+                        player.x += 1
+                        return  
+                    }
+                    if (keyPressed === 'ArrowLeft' && player.x - 1 >= 0 ) {  
+                        player.x -= 1
+                        return  
+                    }
                 }
 
                 return {
-                    moverPlayer
+                    movePlayer,
+                    state
                 }
             }
-            // o createGame agora vai ser nossa camado da logica do jogo
-            const test = createGame()
-            test.moverPlayer({player:'player1',keyPressed:'ArrowUp'})
-            // temos que receber um console moving player1 with ArrowUp
+            
+            const game = createGame()
+           
             document.addEventListener('keydown', handleKeydown)
 
             function handleKeydown(event){
                 const keyPressed = event.key
-                const player = game.players[currentPlayerId]
-
-                if(keyPressed === 'ArrowUp' && player.y - 1 >= 0){
-                    player.y -= 1
-                    return
-                }
-
-                if(keyPressed === 'ArrowDown' && player.y + 1 < screen.height){
-                    player.y += 1
-                    return
-                }
-
-                if(keyPressed === 'ArrowRight' && player.x + 1 < screen.width){
-                    player.x += 1
-                    return
-                }
                 
-                if(keyPressed === 'ArrowLeft' && player.x - 1 >= 0){
-                    player.x -= 1
-                    return
+                const command = {
+                    playerId: 'player1',
+                    keyPressed
                 }
+
+                game.movePlayer(command)
             }   
 
            renderScreen()
@@ -79,24 +86,21 @@
             context.clearRect(0, 0, 10, 10)
 
             // exibe todos os players
-            for(const playerId in game.players){
-                const player = game.players[playerId]
+            for(const playerId in game.state.players){
+                const player = game.state.players[playerId]
                 context.fillStyle = 'black'
                 context.fillRect(player.x, player.y, 1, 1)
             }
 
             // exibe todas as frutas
-            for(const fruitId in game.fruits){
-                const fruit = game.fruits[fruitId]
+            for(const fruitId in game.state.fruits){
+                const fruit = game.state.fruits[fruitId]
                 context.fillStyle = 'green'
                 context.fillRect(fruit.x, fruit.y, 1, 1)
             }
 
             requestAnimationFrame(renderScreen) // cria um loop infinito que atualiza a tela pra ultima versão
            }
-
-           // para mover basta atualizar os eixos x e y
-           // game.fruits['fruit1:'] = { x: 4, y: 1 }
         </script>
     </body>
 </html>
