@@ -30,6 +30,15 @@
                 }
             }
 
+            document.addEventListener('keydown', handleKeydown)
+
+            function handleKeydown(event){
+                // toda vez que você precionar uma tecla o addEventListener
+                // vai chamar a função handleKeydown e passar o event como parametro
+                // o que precisamos é da key do event pra identificar qual tecla foi precionada.
+                console.log(event.key)
+            }   
+
            renderScreen()
 
            function renderScreen() {
