@@ -33,12 +33,18 @@
            renderScreen()
 
            function renderScreen() {
+            // limpa a tela antes de renderiza-la novamente
+            context.fillStyle = 'white'
+            context.fillRect(0, 0, 10, 10)
+
+            // exibe todos os players
             for(playerId in game.players){
                 const player = game.players[playerId]
                 context.fillStyle = 'black'
                 context.fillRect(player.x, player.y, 1, 1)
             }
 
+            // exibe todas as frutas
             for(fruitId in game.fruits){
                 const fruit = game.fruits[fruitId]
                 context.fillStyle = 'green'
@@ -47,6 +53,9 @@
 
             requestAnimationFrame(renderScreen) // cria um loop infinito que atualiza a tela pra ultima versão
            }
+
+           // para mover basta atualizar os eixos x e y
+           // game.fruits['fruit1:'] = { x: 4, y: 1 }
         </script>
     </body>
 </html>
