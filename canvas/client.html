@@ -38,14 +38,14 @@
             context.clearRect(0, 0, 10, 10)
 
             // exibe todos os players
-            for(playerId in game.players){
+            for(const playerId in game.players){
                 const player = game.players[playerId]
                 context.fillStyle = 'black'
                 context.fillRect(player.x, player.y, 1, 1)
             }
 
             // exibe todas as frutas
-            for(fruitId in game.fruits){
+            for(const fruitId in game.fruits){
                 const fruit = game.fruits[fruitId]
                 context.fillStyle = 'green'
                 context.fillRect(fruit.x, fruit.y, 1, 1)
