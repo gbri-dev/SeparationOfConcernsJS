@@ -2,6 +2,7 @@
     <head>
         <meta charset="UTF-8">
         <title>Meu primeiro Jogo</title>
+        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
         <style>
             #screen {
                 border: 10px solid #CCC;
@@ -19,7 +20,7 @@
         <script>
             const screen = document.getElementById('screen')
             const context = screen.getContext('2d')
-
+            const currentPlayerId = 'player1'
             const game = {
                 players: {
                     'player1': { x: 1, y: 1 },
@@ -33,10 +34,28 @@
             document.addEventListener('keydown', handleKeydown)
 
             function handleKeydown(event){
-                // toda vez que você precionar uma tecla o addEventListener
-                // vai chamar a função handleKeydown e passar o event como parametro
-                // o que precisamos é da key do event pra identificar qual tecla foi precionada.
-                console.log(event.key)
+                const keyPressed = event.key
+                const player = game.players[currentPlayerId]
+
+                if(keyPressed === 'ArrowUp' && player.y - 1 >= 0){
+                    player.y -= 1
+                    return
+                }
+
+                if(keyPressed === 'ArrowDown' && player.y + 1 < screen.height){
+                    player.y += 1
+                    return
+                }
+
+                if(keyPressed === 'ArrowRight' && player.x + 1 < screen.width){
+                    player.x += 1
+                    return
+                }
+                
+                if(keyPressed === 'ArrowLeft' && player.x - 1 >= 0){
+                    player.x -= 1
+                    return
+                }
             }   
 
            renderScreen()
