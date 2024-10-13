@@ -24,3 +24,5 @@ Temos 3 estágio de acoplamento:
 1 estágio é quando vc possui codigo de vários componentes tudo misturado ao mesmo tempo
 2 estágio é quando apensar de os componentes estarem isolados um código conhece o outro, ele chama outro componente de forma estática de forma explicita.
 3 estágio é quando os componentes não se conhecem, nem de forma estática. E para conseguir isso, vamos usar o padrão de projeto observer.
+
+O Padrão Observer ele consiste em um **Subject** que seria o componente principal e varios ***observer*** que vai ser avisados sempre que o __subject__ mudar.
