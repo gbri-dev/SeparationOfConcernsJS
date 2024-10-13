@@ -21,7 +21,7 @@
             const screen = document.getElementById('screen')
             const context = screen.getContext('2d')
             const currentPlayerId = 'player1'
-            const game = {
+            const state = {
                 players: {
                     'player1': { x: 1, y: 1 },
                     'player2': { x: 9, y: 9 },
@@ -31,6 +31,19 @@
                 }
             }
 
+            function createGame(){
+                function moverPlayer(command) {
+                    console.log(`Moving ${command.playerId} with ${command.keyPressed}`)
+                }
+
+                return {
+                    moverPlayer
+                }
+            }
+            // o createGame agora vai ser nossa camado da logica do jogo
+            const test = createGame()
+            test.moverPlayer({player:'player1',keyPressed:'ArrowUp'})
+            // temos que receber um console moving player1 with ArrowUp
             document.addEventListener('keydown', handleKeydown)
 
             function handleKeydown(event){
